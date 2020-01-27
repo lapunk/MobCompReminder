@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">MobCompReminder</string>
+    <string name="map_button">MapActivity</string>
+    <string name="time_button">TimeActivity</string>
+    <string name="map_act_desc">MapActivity</string>
+    <string name="time_act_desc">TimeActivity</string>
+</resources>

@@ -7,8 +7,10 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ListView
 import kotlinx.android.synthetic.main.list_view_item.view.*
+import java.text.SimpleDateFormat
+import java.util.*
 
-class ReminderAdapter(context: Context, private val array: Array<String>): BaseAdapter() {
+class ReminderAdapter(context: Context, private val list: List<Reminder>): BaseAdapter() {
 
     private val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
@@ -16,15 +18,29 @@ class ReminderAdapter(context: Context, private val array: Array<String>): BaseA
 
         val row = inflater.inflate(R.layout.list_view_item, parent, false)
 
-        row.itemMessage.text = array[position]
-        row.itemTrigger.text = array[position]
+        row.itemMessage.text = list[position].msg
+
+        if(list[position].time != null)
+        {
+            val sdf = SimpleDateFormat("HH:mm dd.MM.yyyy")
+            sdf.timeZone = TimeZone.getDefault()
+            val time = list[position].time
+            val readableTime = sdf.format(time)
+
+            row.itemTrigger.text = readableTime
+        }
+        else
+        {
+            row.itemTrigger.text = "location"
+        }
+
         return row
 
     }
 
     override fun getItem(position: Int): Any {
 
-        return array[position]
+        return list[position]
 
     }
 
@@ -36,7 +52,7 @@ class ReminderAdapter(context: Context, private val array: Array<String>): BaseA
 
     override fun getCount(): Int {
 
-        return array.size
+        return list.size
 
     }
 

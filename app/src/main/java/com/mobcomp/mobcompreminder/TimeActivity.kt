@@ -4,19 +4,19 @@ import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.annotation.RequiresApi
 import androidx.room.Room
 import kotlinx.android.synthetic.main.activity_time.*
 import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.runOnUiThread
 import org.jetbrains.anko.toast
-import java.sql.Time
 import java.util.*
-import kotlin.system.measureTimeMillis
 
 class TimeActivity : AppCompatActivity() {
 
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_time)
@@ -27,8 +27,8 @@ class TimeActivity : AppCompatActivity() {
                 datePicker.year,
                 datePicker.month,
                 datePicker.dayOfMonth,
-                timePicker.currentHour,
-                timePicker.currentMinute
+                timePicker.hour,
+                timePicker.minute
             )
 
             if((et_message.text.toString() != "") &&

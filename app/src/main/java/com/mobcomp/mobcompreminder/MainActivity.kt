@@ -7,7 +7,6 @@ import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
 import androidx.core.app.NotificationCompat
 import androidx.room.Room
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -15,7 +14,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.toast
 import org.jetbrains.anko.uiThread
-import java.util.*
 import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
@@ -24,35 +22,35 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val fab_map : FloatingActionButton = findViewById(R.id.fab_map)
-        val fab_time : FloatingActionButton = findViewById(R.id.fab_time)
+        val fabMap : FloatingActionButton = findViewById(R.id.fab_map)
+        val fabTime : FloatingActionButton = findViewById(R.id.fab_time)
 
-        val fab_open : FloatingActionButton = findViewById(R.id.fab_open)
+        val fabOpen : FloatingActionButton = findViewById(R.id.fab_open)
         var fabOpened = false
 
-        fab_open.setOnClickListener{
+        fabOpen.setOnClickListener{
 
             if(!fabOpened)
             {
                 fabOpened = true
-                fab_map.animate().translationY(-resources.getDimension(R.dimen.standard_66))
-                fab_time.animate().translationY(-resources.getDimension(R.dimen.standard_132))
+                fabMap.animate().translationY(-resources.getDimension(R.dimen.standard_66))
+                fabTime.animate().translationY(-resources.getDimension(R.dimen.standard_132))
             }
             else
             {
                 fabOpened = false
-                fab_map.animate().translationY(0f)
-                fab_time.animate().translationY(0f)
+                fabMap.animate().translationY(0f)
+                fabTime.animate().translationY(0f)
 
             }
         }
 
-        fab_map.setOnClickListener {
+        fabMap.setOnClickListener {
             val intent = Intent(applicationContext, MapActivity::class.java)
             startActivity(intent)
         }
 
-        fab_time.setOnClickListener{
+        fabTime.setOnClickListener{
             val intent = Intent(applicationContext, TimeActivity::class.java)
             startActivity(intent)
 
@@ -92,15 +90,15 @@ class MainActivity : AppCompatActivity() {
     }
     companion object
     {
-        val CHANNEL_ID = "REMINDER_CHANNEL_ID"
-        var NotificationID = 1567
+        private const val CHANNEL_ID = "REMINDER_CHANNEL_ID"
+        private const val NotificationID = 1567
         fun showNotification(context: Context, message: String) {
-            var notificationBuilder = NotificationCompat.Builder(context, CHANNEL_ID)
+            val notificationBuilder = NotificationCompat.Builder(context, CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_alarm_24px)
                 .setContentTitle(context.getString(R.string.app_name))
                 .setContentText(message).setStyle(NotificationCompat.BigTextStyle().bigText(message)).setPriority(NotificationCompat.PRIORITY_DEFAULT)
 
-            var notificationManager=context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            val notificationManager=context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
             if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.O)
             {
